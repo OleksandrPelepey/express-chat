@@ -1,2 +1,3 @@
 (function() {
+  angular.module('expressChat', []);
 })();

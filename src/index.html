@@ -1,4 +1,4 @@
-<html ng-app>
+<html ng-app="expressChat">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +9,14 @@
   <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
 
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  {{1 + 4}}
+  <chat-app></chat-app>
 
   <script src="/bower_components/angular/angular.js"></script>
-  <script src="app.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

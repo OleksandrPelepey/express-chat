@@ -7,7 +7,7 @@ let concat = require('gulp-concat');
 let clean = require('gulp-clean');
 
 let paths = {
-  html: ['src/index.html', 'src/partials/**/*.html'],
+  html: ['src/**/*.html'],
   scss: ['src/style.scss'],
   js: ['src/main.js', 'src/js/**/*.js'],
   images: ['src/**/*.@(jpg|jpeg|png|ico|gif)'],
