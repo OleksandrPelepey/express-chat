@@ -1,0 +1,33 @@
+{
+  "name": "express-chat",
+  "version": "0.0.1",
+  "description": "Chat Application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OleksandrPelepey/express-chat.git"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "Pelepey Oleksandr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OleksandrPelepey/express-chat/issues"
+  },
+  "homepage": "https://github.com/OleksandrPelepey/express-chat#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-sass": "^3.1.0"
+  }
+}

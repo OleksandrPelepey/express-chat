@@ -1,0 +1,21 @@
+{
+  "name": "express-chat",
+  "description": "Chat Application",
+  "main": "app.js",
+  "authors": [
+    "Pelepey Oleksandr"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chat"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
