@@ -2,12 +2,14 @@ var expect = require('chai').expect;
 var dbConection = require('../../config/db');
 var User = require('../../models/User');
 
-before(function(done) {
-	// clear test db before test
-	User.deleteMany({}, done);
-});
 
 describe('User Model tests', function() {
+	
+	after(function(done) {
+		// clear test db before test
+		User.deleteMany({}, done);
+	});
+
 	it('Should make hash of passwords to db', function(done) {
 		var user = new User({
 			nik: 'karpa',

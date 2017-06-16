@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-var Shema = mongoose.Schema;
+var Schema = mongoose.Schema;
 var saltRounds = 5;
 var salt = bcrypt.genSaltSync(saltRounds);
 
-var userShema = new Shema({
+var userSсhema = new Schema({
   nik: {
     type: String,
     required: true,
@@ -27,7 +27,7 @@ var userShema = new Shema({
 });
 
 // making password hash
-userShema.pre('save', true, function(next, done) {
+userSсhema.pre('save', true, function(next, done) {
   var self = this;
 
   bcrypt.hash(self.password, salt, function(err, hash) {
@@ -45,10 +45,10 @@ userShema.pre('save', true, function(next, done) {
 /**
  * Check user password
  */
-userShema.methods.checkPassword = function(password) {
+userSсhema.methods.checkPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-var User = mongoose.model('User', userShema);
+var User = mongoose.model('User', userSсhema);
 
 module.exports = User;

@@ -1,8 +1,12 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
+var Schema = mongoose.Schema;
 
-var Shema = mongoose.Schema;
 var chatRoomSchema = new Schema({
-  author_id: mongoose.Schema.Types.ObjectId,
+  author_id: {
+    type: ObjectId,
+    required: true
+  },
   name: {
     type: String,
     require: true
@@ -12,8 +16,17 @@ var chatRoomSchema = new Schema({
     require: true,
     default: true
   },
-  password: String,
-  members: [mongoose.Schema.Types.ObjectId]
+  password: {
+    type: String,
+    default: null,
+    validate: {
+      validator: function(v) {
+        if (!this.public) return !!v;
+        return true;
+      },
+      message: 'Password is required for private accounts.'
+    }
+  }
 });
 
 var ChatRoom = mongoose.model('ChatRoom', chatRoomSchema);
