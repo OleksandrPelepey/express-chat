@@ -13,7 +13,7 @@ describe('ChatRoom model testing', function() {
 	});
 
 	var chatRoom = new ChatRoom({
-		author_id: user.id,
+		_author: user.id,
 		name: 'dsfd',
 		public: false
 	});

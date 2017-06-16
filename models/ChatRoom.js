@@ -3,9 +3,10 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var Schema = mongoose.Schema;
 
 var chatRoomSchema = new Schema({
-  author_id: {
+  _author: {
     type: ObjectId,
-    required: true
+    required: true,
+    ref: 'User'
   },
   name: {
     type: String,

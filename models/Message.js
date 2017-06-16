@@ -1,15 +1,18 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId;
 
 var messageSchema = new Schema({
-  author_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
+  _author: {
+    type: ObjectId,
+    required: true,
+    ref: 'User'
   },
-  chat_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
+  _chat: {
+    type: ObjectId,
+    required: true,
+    ref: 'User'
   },
   body: String,
   pub_time: {
