@@ -1,4 +1,5 @@
 var express = require('express');
+var ChatRoom = require('../../models/ChatRoom');
 var router = express.Router();
 
 /**
@@ -6,21 +7,38 @@ var router = express.Router();
  * accept q get variable for searching
  */
 router.get('/chat-rooms', function(req, res) {
-	res.json(req.user);
+	ChatRoom.find({})
+		.select('-_id -password -__v')
+		.populate('_author', '-_id -password -__v')
+		.exec(function(err, rooms) {
+			if (err) return res.json([]);
+			return res.json(rooms);
+		});
 });
 
 /**
  * Get chat-room by id
  */
 router.get('/chat-room/:id', function(req, res) {
-	
+	ChatRoom.find({_id: req.params.id})
+		.select('-_id -password -__v')
+		.exec(function(err, room) {
+			if (err) return res.json({});
+			return res.json(room);
+		});
 });
 
 /**
  * Add new chat-room
  */
 router.post('/chat-room', function(req, res) {
-	
+	var newRoom = Object.assign({}, req.body);
+	newRoom.author = req.user.id;
+
+	ChatRoom.create(newRoom, function(err, doc) {
+		if (err) return res.json({});
+		return res.json(doc);
+	})
 });
 
 /**
