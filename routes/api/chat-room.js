@@ -8,8 +8,8 @@ var router = express.Router();
  */
 router.get('/chat-rooms', function(req, res) {
 	ChatRoom.find({})
-		.select('-_id -password -__v')
-		.populate('_author', '-_id -password -__v')
+		.select('-password -__v')
+		.populate('_author', 'nik full_name')
 		.exec(function(err, rooms) {
 			if (err) return res.json([]);
 			return res.json(rooms);
@@ -21,7 +21,8 @@ router.get('/chat-rooms', function(req, res) {
  */
 router.get('/chat-room/:id', function(req, res) {
 	ChatRoom.find({_id: req.params.id})
-		.select('-_id -password -__v')
+		.select('-password -__v')
+		.populate('_author', 'nik full_name')
 		.exec(function(err, room) {
 			if (err) return res.json({});
 			return res.json(room);
