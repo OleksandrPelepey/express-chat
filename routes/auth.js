@@ -16,7 +16,7 @@ router.post('/signin', function(req, res) {
 
 		User.findOne({email: email}, function(err, user) {
 			if (err) {
-				res.status(401).json({
+				res.json({
 					success: false,
 					error: 'Database request error.'
 				});
@@ -31,20 +31,20 @@ router.post('/signin', function(req, res) {
 						user: payload
 					});
 				} else {
-					res.status(401).json({
+					res.json({
 						success: false,
 						message: 'The passwords do not math.'
 					});
 				}
 			} else {
-				res.status(401).json({
+				res.json({
 					success: false,
-					message: 'User with such email does not exist.'
+					message: 'User with such email does not exists.'
 				});
 			}
 		});
 	} else {
-		res.status(401).json({
+		res.json({
 			success: false,
 			message: 'Email and password is required.'
 		});
@@ -61,7 +61,7 @@ router.post('/signup', function(req, res) {
 			response.success = false;
 
 			if (err.code == '11000') {
-				response.message = 'User with such credentials already exist';
+				response.message = 'User with such credentials already exists';
 			}
 			
 			return res.json(response);
