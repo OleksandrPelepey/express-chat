@@ -7,6 +7,8 @@
 			controllerAs: 'vm'
 		});
 
+	ChatRoomController.$inject = ['chatRoomsService'];
+
 	function ChatRoomController(chatRoomsService) {
 		var vm = this;
 		vm.rooms = [];
@@ -19,6 +21,4 @@
 			});
 		}
 	}
-
-	ChatRoomController.$inject = ['chatRoomsService'];
 })();

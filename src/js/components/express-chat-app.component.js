@@ -7,8 +7,8 @@
 			controllerAs: 'expressChatAppCtrl'
 		});
 
+	ExpressChatAppController.$inject = ['$rootScope'];
+
 	function ExpressChatAppController($rootScope) {
 	}
-
-	ExpressChatAppController.$inject = ['$rootScope'];
 })();

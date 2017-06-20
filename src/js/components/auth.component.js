@@ -7,6 +7,8 @@
 			controllerAs: 'vm'
 		});
 
+	AuthController.$inject = ['$state', 'expressChat.authService'];
+
 	function AuthController($state, authService) {
 		var vm = this;
 		vm.addAlert = addAlert;
@@ -45,6 +47,4 @@
 			return res;
 		}
 	}
-
-	AuthController.$inject = ['$state', 'expressChat.authService'];
 })();

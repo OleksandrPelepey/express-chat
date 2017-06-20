@@ -3,6 +3,8 @@
 		.module('expressChat')
 		.controller('NavBarController', NavBarController);
 
+	NavBarController.$inject = ['$state', 'expressChat.authService'];
+
 	function NavBarController($state, authService) {
 		var vm = this;
 		vm.logout = logout;
@@ -12,6 +14,4 @@
 			$state.go('auth');
 		}
 	}
-
-	NavBarController.$inject = ['$state', 'expressChat.authService'];
 })();

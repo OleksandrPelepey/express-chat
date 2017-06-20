@@ -13,6 +13,8 @@
     .config(appConfig)
     .run(appRun);
 
+    appConfig.$inject = ['$stateProvider', '$urlRouterProvider', 'localStorageServiceProvider', '$httpProvider'];
+
     function appConfig($stateProvider, $urlRouterProvider, localStorageServiceProvider, $httpProvider) {
       // States configuration
       var states = [
@@ -46,7 +48,7 @@
 
     }
 
-    appConfig.$inject = ['$stateProvider', '$urlRouterProvider', 'localStorageServiceProvider', '$httpProvider'];
+    appRun.$inject = ['$transitions', '$state', 'expressChat.authService'];
 
     function appRun($transitions, $state, authService) {
       if (!authService.isLoged()) {
@@ -59,6 +61,4 @@
         }
       });
     }
-
-    appRun.$inject = ['$transitions', '$state', 'expressChat.authService'];
 })();

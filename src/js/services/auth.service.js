@@ -1,45 +1,48 @@
 (function() {
 	angular
 		.module('expressChat')
-		.factory('expressChat.authService', ['$rootScope', '$http', '$q', 'localStorageService', 
-			function($rootScope, $http, $q, localStorageService) {
-				var unbidnCurrentUser = localStorageService.bind($rootScope, 'currentUser');
-				var unbidnUserTaken = localStorageService.bind($rootScope, 'userTaken');
+		.factory('expressChat.authService', authService);
 
-				return {
-					signup: signup,
-					signin: signin,
-					logout: logout,
-					isLoged: isLoged
-				}
+		authService.$inject = ['$rootScope', '$http', '$q', 'localStorageService'];
 
-				function signup(credentials) {
-					return $http.post('/signup', credentials).then(function(res) {
-						return saveUser(res.data);
-					});
-				}
+		function authService($rootScope, $http, $q, localStorageService) {
+			var unbidnCurrentUser = localStorageService.bind($rootScope, 'currentUser');
+			var unbidnUserTaken = localStorageService.bind($rootScope, 'userTaken');
 
-				function signin(credentials) {
-					return $http.post('/signin', credentials).then(function(res) {
-						return saveUser(res.data);
-					});
-				}
+			return {
+				signup: signup,
+				signin: signin,
+				logout: logout,
+				isLoged: isLoged
+			}
 
-				function logout() {
-					$rootScope.currentUser = '';
-					$rootScope.userTaken = '';
-				}
+			function signup(credentials) {
+				return $http.post('/signup', credentials).then(function(res) {
+					return saveUser(res.data);
+				});
+			}
 
-				function isLoged() {
-					return !!$rootScope.currentUser;
-				}
+			function signin(credentials) {
+				return $http.post('/signin', credentials).then(function(res) {
+					return saveUser(res.data);
+				});
+			}
 
-				function saveUser(res) {
-					if (res.success) {
-						$rootScope.currentUser = res.user;
-						$rootScope.userTaken = res.taken;
-					}
-					return res;
+			function logout() {
+				$rootScope.currentUser = '';
+				$rootScope.userTaken = '';
+			}
+
+			function isLoged() {
+				return !!$rootScope.currentUser;
+			}
+
+			function saveUser(res) {
+				if (res.success) {
+					$rootScope.currentUser = res.user;
+					$rootScope.userTaken = res.taken;
 				}
-		}]);
+				return res;
+			}
+		}
 })();

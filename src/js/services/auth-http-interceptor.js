@@ -3,6 +3,8 @@
 		.module('expressChat')
 		.factory('authHttpInterceptor', authHttpInterceptor);
 
+		authHttpInterceptor.$inject = ['$rootScope'];
+		
 		function authHttpInterceptor($rootScope) {
 			return {
 				request: function(config) {
@@ -11,6 +13,4 @@
 				}
 			};
 		}
-
-		authHttpInterceptor.$inject = ['$rootScope'];
 })();
