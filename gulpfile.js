@@ -15,7 +15,7 @@ let paths = {
   html: ['src/**/*.html'],
   scss: ['src/**/*.scss'],
   mainScss: ['src/style.scss'],
-  js: ['node_modules/socket.io-client/socket.io.js', 'src/main.js', 'src/js/**/*.js'],
+  js: ['src/main.js', 'src/js/**/*.js'],
   images: ['src/**/*.@' + imageExts],
   production: 'public/'
 };

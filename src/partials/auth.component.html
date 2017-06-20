@@ -1,0 +1,57 @@
+<div class="container">
+	<div class="notifications">
+		<div data-uib-alert 
+			ng-repeat="alert in vm.alerts" 
+			ng-class="'alert-' + (alert.type || 'warning')" 
+			close="vm.removeAlert($index)">{{alert.msg}}</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-offset-3 col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-body">
+
+					<form name="authForm" data-ng-submit="authForm.$valid && vm.auth()">
+						<div class="form-group" data-ng-if="vm.whetherRegNewUser">
+							<label for="">Full name</label>
+							<input type="text" class="form-control" id="" 
+								placeholder="Full name"
+								data-ng-model="vm.credentials.full_name"
+								required>
+						</div>
+						<div class="form-group" data-ng-if="vm.whetherRegNewUser">
+							<label for="">Nik name</label>
+							<input type="text" class="form-control" id="" 
+								placeholder="Nik name"
+								data-ng-model="vm.credentials.nik"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="">Email address</label>
+							<input type="email" class="form-control" id="" 
+								placeholder="Email"
+								data-ng-model="vm.credentials.email"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="">Password</label>
+							<input type="password" class="form-control" id="" 
+								placeholder="Password"
+								data-ng-model="vm.credentials.password"
+								required>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" 
+									name="whetherRegNewUser"
+									data-ng-model="vm.whetherRegNewUser"> Registry new user
+							</label>
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

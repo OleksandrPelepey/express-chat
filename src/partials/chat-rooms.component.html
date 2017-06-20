@@ -1,0 +1,12 @@
+<div class="container">
+	<div class="panel panel-default" data-ng-repeat="room in vm.rooms">
+		<div class="panel-body">
+			<h5>
+				<span class="glyphicon glyphicon-lock" data-ng-if="!room.public" aria-hidden="true"></span>
+				<a data-ui-sref="chatRoom({id: room._id})">{{room.name}}</a>
+			</h5>
+
+			<div>Admin: {{room._author.full_name}}</div>
+		</div>
+	</div>
+</div>
