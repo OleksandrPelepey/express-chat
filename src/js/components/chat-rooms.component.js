@@ -3,13 +3,13 @@
 		.module('expressChat')
 		.component('chatRooms', {
 			templateUrl: 'partials/chat-rooms.component.html',
-			controller: ChatRoomController,
+			controller: ChatRoomsController,
 			controllerAs: 'vm'
 		});
 
-	ChatRoomController.$inject = ['chatRoomsService'];
+	ChatRoomsController.$inject = ['chatRoomsService'];
 
-	function ChatRoomController(chatRoomsService) {
+	function ChatRoomsController(chatRoomsService) {
 		var vm = this;
 		vm.rooms = [];
 
