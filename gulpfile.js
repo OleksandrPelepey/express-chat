@@ -1,21 +1,24 @@
 'use strict';
 
-let gulp = require('gulp');
-let scss = require('gulp-sass');
-let imagemin = require('gulp-imagemin');
-let concat = require('gulp-concat');
-let clean = require('gulp-clean');
+var gulp           = require('gulp');
+var scss           = require('gulp-sass');
+var imagemin       = require('gulp-imagemin');
+var concat         = require('gulp-concat');
+var clean          = require('gulp-clean');
+var uglifyJs       = require('gulp-uglifyjs');
+var mainBowerFiles = require('main-bower-files');
 
-let browserSync = require('browser-sync').create();
-let reload = browserSync.reload;
+var browserSync    = require('browser-sync').create();
+var reload         = browserSync.reload;
 
-let imageExts = '(jpg|jpeg|png|ico|gif)';
 
-let paths = {
+var imageExts = '(jpg|jpeg|png|ico|gif)';
+var bowerJs   = mainBowerFiles('**/*.js');
+var paths = {
   html: ['src/**/*.html'],
   scss: ['src/**/*.scss'],
   mainScss: ['src/style.scss'],
-  js: ['src/main.js', 'src/js/**/*.js'],
+  js: bowerJs.concat(['src/main.js', 'src/js/**/*.js']),
   images: ['src/**/*.@' + imageExts],
   production: 'public/'
 };
@@ -55,6 +58,7 @@ gulp.task('scss', ['clean-css'], function() {
 gulp.task('js', ['clean-js'], function() {
   return gulp.src(paths.js)
     .pipe(concat('main.js'))
+    // .pipe(uglifyJs())
     .pipe(gulp.dest(paths.production));
 });
 

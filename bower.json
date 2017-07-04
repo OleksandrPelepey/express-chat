@@ -25,6 +25,18 @@
     "angular-bootstrap": "^2.5.0",
     "angular-ui-router": "^1.0.4",
     "angular-http-auth": "^1.5.0",
-    "angular-local-storage": "^0.6.0"
+    "angular-local-storage": "^0.6.0",
+    "bootstrap": "^3.3.7"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap-theme.min.css"
+      ]
+    },
+    "jquery": {
+      "ignore": "true"
+    }
   }
 }
