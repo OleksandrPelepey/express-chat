@@ -5,7 +5,9 @@
     'ngAnimate', 
     'ngTouch', 
     'ui.bootstrap', 
-    'ui.router'
+    'ui.router',
+    'permission', 
+    'permission.ui'
   ];
 
   angular
@@ -13,15 +15,33 @@
     .config(appConfig)
     .run(appRun);
 
-    appConfig.$inject = ['$stateProvider', '$urlRouterProvider', 'localStorageServiceProvider', '$httpProvider'];
+    appConfig.$inject = [
+      '$stateProvider', 
+      '$urlRouterProvider', 
+      'localStorageServiceProvider', 
+      '$httpProvider'
+    ];
 
-    function appConfig($stateProvider, $urlRouterProvider, localStorageServiceProvider, $httpProvider) {
+    function appConfig(
+      $stateProvider, 
+      $urlRouterProvider, 
+      localStorageServiceProvider, 
+      $httpProvider
+    ) {
       // States configuration
       var states = [
         {
           name: 'initState',
           url: '/',
-          component: 'chatRooms'
+          component: 'chatRooms',
+          data: {
+            permissions: {
+              only: 'isAuthorized',
+              redirectTo: {
+                state: 'auth'
+              }
+            }
+          }
         },
         {
           name: 'auth',
@@ -31,7 +51,22 @@
         {
           name: 'chat',
           url: '/chat/{chatId}',
-          component: 'chatRoom'
+          component: 'chatRoom',
+          resolve: {
+            chatRoomsService: 'chatRoomsService',
+            $stateParams: '$stateParams',
+            chatRoom: function(chatRoomsService, $stateParams) {
+              return chatRoomsService.getRoom($stateParams.chatId);
+            }
+          },
+          data: {
+            permissions: {
+              only: 'isAuthorized',
+              redirectTo: {
+                state: 'auth'
+              }
+            }
+          }
         }
       ];
 
@@ -48,17 +83,12 @@
 
     }
 
-    appRun.$inject = ['$transitions', '$state', 'expressChat.authService'];
+    appRun.$inject = ['$transitions', '$state', 'PermPermissionStore', 'expressChat.authService'];
 
-    function appRun($transitions, $state, authService) {
-      if (!authService.isLoged()) {
-        $state.go('auth');
-      }
-
-      $transitions.onStart({to: '**'}, function(trans){
-        if (trans.to().name !== 'auth' && !authService.isLoged()) {
-          $state.go('auth');
-        }
-      });
+    function appRun($transitions, $state, PermPermissionStore, authService) {
+      PermPermissionStore
+        .definePermission('isAuthorized', function() {
+          return authService.isLoged();
+        });
     }
 })();

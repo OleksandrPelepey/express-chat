@@ -4,10 +4,15 @@
 		.component('chatRoom', {
 			templateUrl: 'partials/chat-room.component.html',
 			controller: ChatRoomController,
-			controllerAs: 'vm'
+			controllerAs: 'vm',
+			bindings: {
+				chatRoom: '<'
+			}
 		});
 
-		ChatRoomController.$inject = [];
+		ChatRoomController.$inject = ['$scope'];
 		
-		function ChatRoomController() {}
+		function ChatRoomController($scope) {
+			var vm = this;
+		}
 })();
