@@ -17,16 +17,10 @@ var chatRoomSchema = new Schema({
     require: true,
     default: true
   },
-  password: {
-    type: String,
-    default: null,
-    validate: {
-      validator: function(v) {
-        if (!this.public) return !!v;
-        return true;
-      },
-      message: 'Password is required for private accounts.'
-    }
+  users: {
+    type: Array,
+    default: [],
+    require: true
   }
 });
 

@@ -33,10 +33,10 @@ router.get('/chat-room/:id', function(req, res) {
  * Add new chat-room
  */
 router.post('/chat-room', function(req, res) {
-	var newRoom = Object.assign({}, req.body);
-	newRoom.author = req.user.id;
+	var newRoomParam = Object.assign({}, req.body);
+	newRoomParam._author = req.user.id;
 
-	ChatRoom.create(newRoom, function(err, doc) {
+	ChatRoom.create(newRoomParam, function(err, doc) {
 		if (err) return res.json({});
 		return res.json(doc);
 	})

@@ -36,7 +36,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li data-ng-show="!!currentUser"><a href="#" data-ng-click="vm.logout()" >Logout</a></li>
+            <li data-ng-if="!!currentUser"><a href="#" data-ng-click="$event.preventDefault(); vm.openNewRoomPopup()">Add new room</a></li>
+            <li data-ng-if="!!currentUser"><a href="#" data-ng-click="$event.preventDefault(); vm.logout();" >Logout</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
 

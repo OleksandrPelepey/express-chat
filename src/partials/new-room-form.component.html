@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h5>Create new room</h5>
+</div>
+<div class="modal-body" id="modal-body">
+  <form name="newRoom" data-ng-submit="newRoom.$valid && vm.formSubmit()">
+    <label>Form name:</label>
+    <input type="text" 
+      name="name" 
+      class="form-control"
+      data-ng-model="vm.newRoom.name"
+      required="required">
+    
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"
+          name="publick"
+          data-ng-model="vm.newRoom.public" 
+          checked="checked">Public
+      </label>
+    </div>
+
+    <!-- Choose users -->
+
+    <button type="submit" class="btn btn-primary">
+      Create
+    </button>
+  </form>
+</div>
