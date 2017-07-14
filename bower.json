@@ -19,9 +19,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.6.4",
-    "angular-touch": "^1.6.4",
-    "angular-animate": "^1.6.4",
+    "angular": "^1.6.5",
+    "angular-touch": "^1.6.5",
+    "angular-animate": "^1.6.5",
     "angular-bootstrap": "^2.5.0",
     "angular-ui-router": "^1.0.4",
     "angular-http-auth": "^1.5.0",
@@ -39,5 +39,8 @@
     "jquery": {
       "ignore": "true"
     }
+  },
+  "devDependencies": {
+    "angular-touch": "^1.6.5"
   }
 }

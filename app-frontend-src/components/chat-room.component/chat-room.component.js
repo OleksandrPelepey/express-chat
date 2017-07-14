@@ -10,9 +10,16 @@
 			}
 		});
 
-		ChatRoomController.$inject = ['$scope'];
+		ChatRoomController.$inject = ['$state'];
 		
-		function ChatRoomController($scope) {
+		function ChatRoomController($state) {
 			var vm = this;
+
+
+			vm.$onInit = function() {
+				if (angular.equals(vm.chatRoom, {}) ) {
+					$state.go('initState');
+				}
+			}
 		}
 })();

@@ -7,7 +7,24 @@ var router = express.Router();
  * accept q get variable for searching
  */
 router.get('/chat-rooms', function(req, res) {
-	ChatRoom.find({})
+	ChatRoom.find({
+			$or: [
+				{
+					public: true
+				}, 
+				{
+					public: false,
+					$or: [
+						{
+							_author: req.user.id
+						},
+						{
+							users: {$all: [req.user.id]}
+						}
+					]
+				}
+			]
+		})
 		.select('-password -__v')
 		.populate('_author', 'nik full_name')
 		.exec(function(err, rooms) {
@@ -20,7 +37,18 @@ router.get('/chat-rooms', function(req, res) {
  * Get chat-room by id
  */
 router.get('/chat-room/:id', function(req, res) {
-	ChatRoom.find({_id: req.params.id})
+	ChatRoom.find({
+			_id: req.params.id,
+			$or: [
+				{
+					public: true,
+				},
+				{
+					public: false,
+					_author: req.user.id
+				}
+			]
+		})
 		.select('-password -__v')
 		.populate('_author', 'nik full_name')
 		.exec(function(err, room) {

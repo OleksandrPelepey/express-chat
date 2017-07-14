@@ -1,21 +1,9 @@
 (function() {
-  var appDependencies = [
-    'LocalStorageModule', 
-    'http-auth-interceptor', 
-    'ngAnimate', 
-    'ngTouch', 
-    'ui.bootstrap', 
-    'ui.router',
-    'permission', 
-    'permission.ui'
-  ];
+	angular
+		.module('expressChat')
+    .config(appConfig);
 
-  angular
-    .module('expressChat', appDependencies)
-    .config(appConfig)
-    .run(appRun);
-
-    appConfig.$inject = [
+		 appConfig.$inject = [
       '$stateProvider', 
       '$urlRouterProvider', 
       'localStorageServiceProvider', 
@@ -28,6 +16,9 @@
       localStorageServiceProvider, 
       $httpProvider
     ) {
+      // Local Storage configuration
+      localStorageServiceProvider.setPrefix('ec');
+			
       // States configuration
       var states = [
         {
@@ -76,19 +67,8 @@
 
       $urlRouterProvider.otherwise('/');
 
-      // Local Storage configuration
-      localStorageServiceProvider.setPrefix('ec');
-
       $httpProvider.interceptors.push('authHttpInterceptor');
 
     }
 
-    appRun.$inject = ['$transitions', '$state', 'PermPermissionStore', 'expressChat.authService'];
-
-    function appRun($transitions, $state, PermPermissionStore, authService) {
-      PermPermissionStore
-        .definePermission('isAuthorized', function() {
-          return authService.isLoged();
-        });
-    }
 })();
