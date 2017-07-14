@@ -161,7 +161,7 @@ gulp.task('browser-sync-init', function() {
 
 gulp.task('serve', ['browser-sync-init'], function() {
   gulp.watch([paths.app.html.main, paths.app.html.partials], ['html', 'reload-browser']);
-  gulp.watch(paths.app.styles.main, ['scss']);
+  gulp.watch(basePaths.app + '/**/*.scss', ['scss']);
   gulp.watch(paths.app.js.app,  ['js-app', 'reload-browser']);
   gulp.watch(paths.app.images,  ['images', 'reload-browser']);
 });
