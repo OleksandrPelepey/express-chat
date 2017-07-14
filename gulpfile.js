@@ -8,6 +8,7 @@ var clean          = require('gulp-clean');
 var uglifyJs       = require('gulp-uglifyjs');
 var mainBowerFiles = require('main-bower-files');
 var rename         = require('gulp-rename');
+var gulpSequence = require('gulp-sequence')
 
 var browserSync    = require('browser-sync').create();
 var reload         = browserSync.reload;
@@ -160,10 +161,22 @@ gulp.task('browser-sync-init', function() {
 });
 
 gulp.task('serve', ['browser-sync-init'], function() {
-  gulp.watch([paths.app.html.main, paths.app.html.partials], ['html', 'reload-browser']);
+  gulp.watch([paths.app.html.main, paths.app.html.partials], function (event) {
+    gulpSequence('html', 'reload-browser')(function (err) {
+      if (err) console.log(err)
+    });
+  });
   gulp.watch(basePaths.app + '/**/*.scss', ['scss']);
-  gulp.watch(paths.app.js.app,  ['js-app', 'reload-browser']);
-  gulp.watch(paths.app.images,  ['images', 'reload-browser']);
+  gulp.watch(paths.app.js.app,  function (event) {
+    gulpSequence('js-app', 'reload-browser')(function (err) {
+      if (err) console.log(err)
+    });
+  });
+  gulp.watch(paths.app.images,  function (event) {
+    gulpSequence('images', 'reload-browser')(function (err) {
+      if (err) console.log(err)
+    });
+  });
 });
 
 // default task
