@@ -12,7 +12,7 @@ var messageSchema = new Schema({
   _chat: {
     type: ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'ChatRoom'
   },
   body: String,
   pub_time: {

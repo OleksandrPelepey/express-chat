@@ -7,6 +7,8 @@ var router = express.Router();
  * accept q get variable for searching
  */
 router.get('/chat-rooms', function(req, res) {
+	// find all public rooms and private rooms where current user is an author 
+	// or member 
 	ChatRoom.find({
 			$or: [
 				{
@@ -25,8 +27,8 @@ router.get('/chat-rooms', function(req, res) {
 				}
 			]
 		})
-		.select('-password -__v')
-		.populate('_author', 'nik full_name')
+		.select('-__v') // Leave unnecessary fiels
+		.populate('_author', 'nik full_name') // concat with user data
 		.exec(function(err, rooms) {
 			if (err) return res.json([]);
 			return res.json(rooms);

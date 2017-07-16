@@ -1,7 +1,10 @@
 var express = require('express');
-var jwt = require('jwt-simple');  
 var bodyParser = require('body-parser');
-var config = require('../config/jwt');  
+
+var passport = require('passport');
+var jwt = require('jsonwebtoken');
+var jwtOptions = require('../config/jwt');
+
 var User = require('../models/User');
 
 var router = express.Router();
@@ -15,38 +18,26 @@ router.post('/signin', function(req, res) {
 		var password = req.body.password;
 
 		User.findOne({email: email}, function(err, user) {
-			if (err) {
-				res.json({
-					success: false,
-					error: 'Database request error.'
-				});
-			} else if(user) {
-				if (user.checkPassword(password)) {
-					var payload = makePayload(user);
-					var taken = makeJwtUserTaken(payload);
+			if (err || !user) {
+				res.status(401).json({success: false, message: "No such user found."});
+			} 
 
-					res.json({
-						success: true,
-						taken: taken,
-						user: payload
-					});
-				} else {
-					res.json({
-						success: false,
-						message: 'The passwords do not math.'
-					});
-				}
+			if (!user.checkPassword(password)) {
+				res.status(401).json({success: false, message: "Incorrect password."});
 			} else {
-				res.json({
-					success: false,
-					message: 'User with such email does not exists.'
-				});
+				var payload = {id: user._id, password: password};
+				var token = jwt.sign(payload, jwtOptions.secretOrKey);
+
+				// Prevent sending password hash back
+				user.password = undefined;
+				
+				res.json({success: true, taken: 'JWT ' + token, user: user});
 			}
 		});
 	} else {
-		res.json({
+		res.status(401).json({
 			success: false,
-			message: 'Email and password is required.'
+			message: 'Email and password is required'
 		});
 	}
 });
@@ -67,30 +58,13 @@ router.post('/signup', function(req, res) {
 			return res.json(response);
 		}
 
-		var payload = makePayload(newUser);
-		var taken = makeJwtUserTaken(payload);
+		var payload = {id: user._id, password: newUser.password};
+		var token = jwt.sign(payload, jwtOptions.secretOrKey);
 
-		return res.json({
-			success: true,
-			user: payload,
-			taken: taken
-		});
+		user.password = undefined;
+		
+		return res.json({success: true, taken: 'JWT ' + token, user: user});
 	});
 });
-
-function makePayload(user) {
-	var payload = {
-		id: user.id,
-		nik: user.nik,
-		full_name: user.full_name,
-		email: user.email
-	};
-	return payload;
-}
-
-function makeJwtUserTaken(payload) {
-	var taken = 'JWT ' + jwt.encode(payload, config.jwtSecret);
-	return taken;
-}
 
 module.exports = router;
