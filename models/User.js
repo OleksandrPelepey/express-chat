@@ -26,6 +26,9 @@ var userSсhema = new Schema({
   }
 });
 
+// Create text index for users searching
+userSсhema.index({nik: 'text', full_name: 'text'});
+
 // making password hash
 userSсhema.pre('save', true, function(next, done) {
   var self = this;

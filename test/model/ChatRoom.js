@@ -25,11 +25,4 @@ describe('ChatRoom model testing', function() {
 		});
 	});
 
-	it('Chat room model should accept null as a password for public rooms', function(done) {
-		chatRoom.public = true;
-		chatRoom.validate(function(e) {
-			expect(e).to.be.null;
-			done();
-		});
-	});
 });

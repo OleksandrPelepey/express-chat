@@ -1,8 +1,10 @@
 var express = require('express');
-var messagesRoutes = require('./message.js');
-var chatRoomRoutes = require('./chat-room.js');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+
+var messagesRoutes = require('./messages');
+var chatRoomRoutes = require('./chat-rooms');
+var usersRoutes = require('./users');
 
 var router = express.Router();
 
@@ -11,7 +13,8 @@ router.use(bodyParser.json());
 router.use('/api', 
 	passport.authenticate('jwt', { session: false }),
 	messagesRoutes, 
-	chatRoomRoutes
+	chatRoomRoutes,
+	usersRoutes
 );
 
 module.exports = router;
