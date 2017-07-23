@@ -27,7 +27,7 @@ router.get('/chat-rooms', function(req, res) {
 				}
 			]
 		})
-		.select('-__v') // Leave unnecessary fiels
+		.select('-__v') // Delete unnecessary fiels
 		.populate('_author', 'nik full_name') // concat with user data
 		.exec(function(err, rooms) {
 			if (err) return res.json([]);
@@ -47,12 +47,19 @@ router.get('/chat-room/:id', function(req, res) {
 				},
 				{
 					public: false,
-					_author: req.user.id
+					$or: [
+						{
+							_author: req.user.id
+						},
+						{
+							users: {$all: [req.user.id]}
+						}
+					]
 				}
 			]
 		})
 		.select('-password -__v')
-		.populate('_author', 'nik full_name')
+		.populate('_author users', 'nik full_name')
 		.exec(function(err, room) {
 			if (err) return res.json({});
 			return res.json(room);

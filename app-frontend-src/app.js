@@ -22,5 +22,4 @@
           return authService.isLoged();
         });
     }
-    // bla
 })();

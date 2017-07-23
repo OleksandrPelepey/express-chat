@@ -3,9 +3,9 @@
 		.module('expressChat')
 		.factory('chatRoomsService', chatRoomsService);
 
-		chatRoomsService.$inject = ['$http'];
+		chatRoomsService.$inject = ['$http', 'resDataFilter'];
 
-		function chatRoomsService($http) {
+		function chatRoomsService($http, resDataFilter) {
 			var baseUrl = '/api';
 
 			return {
@@ -15,19 +15,15 @@
 			}
 
 			function getRooms() {
-				return $http.get(baseUrl + '/chat-rooms').then(returnResData);
+				return $http.get(baseUrl + '/chat-rooms').then(resDataFilter);
 			}
 
 			function getRoom(id) {
-				return $http.get(baseUrl + '/chat-room/' + id).then(returnResData);
+				return $http.get(baseUrl + '/chat-room/' + id).then(resDataFilter);
 			}
 
 			function createRoom(roomData) {
-				return $http.post(baseUrl + '/chat-room', roomData).then(returnResData);
-			}
-
-			function returnResData(res) {
-				return res.data;
+				return $http.post(baseUrl + '/chat-room', roomData).then(resDataFilter);
 			}
 		}
 })();

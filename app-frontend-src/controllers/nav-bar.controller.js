@@ -19,7 +19,7 @@
 			var modalInstance = $uibModal.open({
 				ariaLabelledBy: 'modal-title',
 				ariaDescribedBy: 'modal-body',
-				component: 'newRoomComponent',
+				component: 'newRoom',
 				size: 'lg'
 			});
 		}

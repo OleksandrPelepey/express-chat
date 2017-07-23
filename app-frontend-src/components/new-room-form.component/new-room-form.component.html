@@ -2,8 +2,8 @@
   <h5>Create new room</h5>
 </div>
 <div class="modal-body" id="modal-body">
-  <form name="newRoom" data-ng-submit="newRoom.$valid && vm.formSubmit()">
-    <label>Form name:</label>
+  <form name="newRoomForm" data-ng-submit="newRoomForm.$valid && vm.formSubmit()">
+    <label>Group name:</label>
     <input type="text" 
       name="name" 
       class="form-control"
@@ -13,13 +13,38 @@
     <div class="checkbox">
       <label>
         <input type="checkbox"
-          name="publick"
+          name="public"
           data-ng-model="vm.newRoom.public" 
+          data-ng-click="vm.newRoom.users = []"
           checked="checked">Public
       </label>
     </div>
 
     <!-- Choose users -->
+    <div data-ng-if="!vm.newRoom.public">
+      <label for="">Invited users</label>
+      <div>
+        <div class="alert alert-success" data-ng-repeat="user in vm.newRoom.users">{{user.full_name}} ({{user.nik}}) 
+          <button type="button" 
+            data-ng-click="vm.deleteUserFromNewRoom($index)"
+            class="close" 
+            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+      </div>
+      <input type="text" 
+        name="userSelect"
+        placeholder="Select users wich have access to this room" 
+        class="form-control"
+        data-ng-model="vm.selectedUser" 
+        data-uib-typeahead="user as user.full_name for user in vm.getUsers($viewValue)" 
+        data-typeahead-loading="loadingLocations" 
+        data-typeahead-no-results="noResults"
+        data-typeahead-min-length="3"
+        data-typeahead-wait-ms="300"
+        data-typeahead-on-select="vm.pushUserToInvited($item, $model, $label, $event)">
+    </div>
+
+    <p></p>
 
     <button type="submit" class="btn btn-primary">
       Create

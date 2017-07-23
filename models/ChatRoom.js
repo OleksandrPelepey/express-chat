@@ -18,9 +18,14 @@ var chatRoomSchema = new Schema({
     default: true
   },
   users: {
-    type: Array,
-    default: [],
-    require: true
+    type: [
+      { 
+        type: Schema.Types.ObjectId, 
+        ref: 'User' 
+      }
+    ],
+    required: true,
+    default: []
   }
 });
 
