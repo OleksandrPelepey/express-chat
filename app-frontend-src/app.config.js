@@ -45,9 +45,13 @@
           component: 'chatRoom',
           resolve: {
             chatRoomsService: 'chatRoomsService',
+            messagesService: 'messagesService',
             $stateParams: '$stateParams',
             chatRoom: function(chatRoomsService, $stateParams) {
               return chatRoomsService.getRoom($stateParams.chatId);
+            },
+            messages: function(messagesService, $stateParams) {
+              return messagesService.getAll($stateParams.chatId);
             }
           },
           data: {

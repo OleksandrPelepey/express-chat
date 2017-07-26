@@ -62,7 +62,10 @@ router.get('/chat-room/:id', function(req, res) {
 		.populate('_author users', 'nik full_name')
 		.exec(function(err, room) {
 			if (err) return res.json({});
-			return res.json(room);
+			if (room.length == 0) {
+				return res.json({});
+			}
+			return res.json(room[0]);
 		});
 });
 

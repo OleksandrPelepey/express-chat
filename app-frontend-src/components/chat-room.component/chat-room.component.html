@@ -1,4 +1,23 @@
 <div class="container">
-	Chat room 
-	<pre>{{vm.chatRoom | json}}</pre>
+	<!-- <h2>{{vm.chatRoom.name}}</h2> -->
+	<!-- <pre>{{vm.chatRoom | json}}</pre>
+	<pre>{{vm.messages | json}}</pre> -->
+
+	<div class="chat-canvas">
+		<div class="chat-container">
+			<div class="chat-message-wrap" data-ng-repeat="message in vm.messages">
+				<div class="chat-message" 
+					data-ng-class="{'chat-message-mine': message._author._id == vm.currentUser._id}"
+				>
+					<h5 class="chat-message-author">{{message._author.nik}}:</h5>
+					{{message.body}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<form name="messageForm" class="chat-form" data-ng-submit="messageForm.$valid && vm.sendMessage()">
+		<textarea name="message" class="form-control" data-ng-model="vm.editedMessage.body"></textarea>
+		<p></p>
+		<button type="sumbit" class="btn btn-primary">Send</button>
+	</form>
 </div>

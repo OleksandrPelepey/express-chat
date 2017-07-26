@@ -31,10 +31,22 @@ router.post('/message/:chatRoomId', function(req, res) {
 	var newMessage = Object.assign({}, req.body);
 	newMessage._chat = req.params.chatRoomId;
 	newMessage._author = req.user.id;
+	newMessage.pub_time = new Date();
 
 	Message.create(newMessage, function(err, newMessage) {
-		if (err) return res.json([]);
-		return res.json(newMessage);
+		if (err) return res.json({});
+
+		var responseMessage = {
+			body: newMessage.body,
+			pub_time: newMessage.pub_time,
+			_author: {
+				_id: req.user._id,
+				full_name: req.user.full_name,
+				nik: req.user.nik,
+			}
+		};
+
+		return res.json(responseMessage);
 	});
 });
 

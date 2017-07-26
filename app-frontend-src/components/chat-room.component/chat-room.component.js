@@ -6,20 +6,32 @@
 			controller: ChatRoomController,
 			controllerAs: 'vm',
 			bindings: {
-				chatRoom: '<'
+				chatRoom: '<',
+				messages: '<'
 			}
 		});
 
-		ChatRoomController.$inject = ['$state'];
+		ChatRoomController.$inject = ['$state', '$rootScope', 'messagesService' ];
 		
-		function ChatRoomController($state) {
+		function ChatRoomController($state, $rootScope, messagesService) {
 			var vm = this;
+			vm.editedMessage = {};
+			vm.sendMessage = sendMessage;
+			vm.currentUser = $rootScope.currentUser;
+				console.log(vm.currentUser);
 
 
 			vm.$onInit = function() {
 				if (angular.equals(vm.chatRoom, {}) ) {
-					$state.go('initState');
+					return $state.go('initState');
 				}
+			}
+
+			function sendMessage() {
+				messagesService.sendMessage(vm.chatRoom._id, vm.editedMessage).then(function(message) {
+					vm.messages.push(message);
+					vm.editedMessage = {};
+				});
 			}
 		}
 })();

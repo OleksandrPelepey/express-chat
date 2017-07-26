@@ -1,1 +1,41 @@
 body {}
+
+/**
+ * Chat
+ */ 
+
+.chat {
+	&-canvas {
+    overflow: auto;
+		height: calc(100% - 300px);
+		margin-bottom: 20px;
+    background-color: #f8f8f8;
+	}
+	&-container {
+		min-height: 100%;
+		padding: 30px;
+	}
+	&-form {
+		height: 150px;
+	}
+	&-message {
+		width: auto;
+		max-width: 90%;
+		float: right;
+		padding: 10px;
+    background: #fdfcfc;
+		margin: 10px 0;
+		
+		&-wrap {
+			&::after {
+				content: '';
+				display: table;
+				clear: both;
+			}
+		}
+
+		&-mine {
+			float: left;
+		}
+	}
+}
