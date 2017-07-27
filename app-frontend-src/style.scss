@@ -6,7 +6,7 @@ body {}
 
 .chat {
 	&-canvas {
-    overflow: auto;
+    overflow-y: scroll;
 		height: calc(100% - 300px);
 		margin-bottom: 20px;
     background-color: #f8f8f8;

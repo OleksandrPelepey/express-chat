@@ -39,6 +39,7 @@ router.post('/message/:chatRoomId', function(req, res) {
 		var responseMessage = {
 			body: newMessage.body,
 			pub_time: newMessage.pub_time,
+			_chat: newMessage._chat,
 			_author: {
 				_id: req.user._id,
 				full_name: req.user.full_name,

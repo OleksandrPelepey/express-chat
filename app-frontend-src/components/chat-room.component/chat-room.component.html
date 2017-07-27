@@ -3,8 +3,8 @@
 	<!-- <pre>{{vm.chatRoom | json}}</pre>
 	<pre>{{vm.messages | json}}</pre> -->
 
-	<div class="chat-canvas">
-		<div class="chat-container">
+	<div class="chat-canvas" data-scroll-glue-bottom>
+		<div class="chat-container"> 
 			<div class="chat-message-wrap" data-ng-repeat="message in vm.messages">
 				<div class="chat-message" 
 					data-ng-class="{'chat-message-mine': message._author._id == vm.currentUser._id}"

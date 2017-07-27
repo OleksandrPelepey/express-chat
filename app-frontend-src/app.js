@@ -7,7 +7,8 @@
     'ui.bootstrap', 
     'ui.router',
     'permission', 
-    'permission.ui'
+    'permission.ui',
+    'luegg.directives'
   ];
 
   angular
