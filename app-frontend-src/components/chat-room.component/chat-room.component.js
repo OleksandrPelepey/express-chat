@@ -36,11 +36,17 @@
 			}
 
 			function runChatSocket() {
-				vm.socket = io('/chat?room=' + vm.chatRoom._id);
+				vm.socket = io.connect('/chat?room=' + vm.chatRoom._id);
 
-				vm.socket.on('message', function(message) {
-       		$scope.$apply(function() {
-						vm.messages.push(message);
+				vm.socket.on('connect', function() {
+					vm.socket.emit('authenticate', {token: $rootScope.userTaken});
+
+					vm.socket.on('authenticated', function() {
+						vm.socket.on('message', function(message) {
+							$scope.$apply(function() {
+								vm.messages.push(message);
+							});
+						});
 					});
 				});
 			}

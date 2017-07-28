@@ -8,7 +8,7 @@
 		function authHttpInterceptor($rootScope) {
 			return {
 				request: function(config) {
-					config.headers.Authorization = $rootScope.userTaken;
+					config.headers.Authorization = 'JWT ' + $rootScope.userTaken;
 					return config;
 				}
 			};

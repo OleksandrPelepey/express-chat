@@ -9,7 +9,6 @@ var User = require('../models/User');
 
 module.exports = function() {
 	var jwtStrategy = new JwtStrategy(optJWT, function(jwt_payload, done) {
-		// console.log(jwt_payload);
 
 		var password = jwt_payload.password;
 
@@ -19,7 +18,7 @@ module.exports = function() {
 			} 
 
 			if (!user) {
-				return done(null, false, { message: 'Incorrect username or email.' });
+				return done(null, false, { message: 'Such user doesn t exists' });
 			}
 
 			if (!user.checkPassword(password)) {

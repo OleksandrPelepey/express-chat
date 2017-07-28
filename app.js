@@ -26,13 +26,23 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var chatIo = io.of('/chat');
 
-chatIo.on('connection', function(socket) {
-	socket.join(socket.handshake.query.room);
+var socketioJwt = require('socketio-jwt');
+var jwtOptions = require('./config/jwt');
 
-	socket.on('message', function(message) {
-		socket.broadcast.to(message._chat).emit('message', message);
+chatIo
+	.on('connection', socketioJwt.authorize({
+		secret: jwtOptions.secretOrKey,
+		timeout: 15000 // 15 seconds to send the authentication message
+	}))
+	.on('authenticated', function(socket) {
+		// Join users to rooms only after authorization check
+		// ToDo: make user access to room checking
+		socket.join(socket.handshake.query.room);		
+		
+		socket.on('message', function(message) {
+			socket.broadcast.to(message._chat).emit('message', message);
+		});
 	});
-});
 
 
 server.listen(3000, function() {

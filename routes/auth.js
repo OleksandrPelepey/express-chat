@@ -31,7 +31,7 @@ router.post('/signin', function(req, res) {
 				// Prevent sending password hash back
 				user.password = undefined;
 				
-				res.json({success: true, taken: 'JWT ' + token, user: user});
+				res.json({success: true, taken: token, user: user});
 			}
 		});
 	} else {
