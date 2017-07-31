@@ -24,7 +24,6 @@ var chatRoomSchema = new Schema({
         ref: 'User' 
       }
     ],
-    required: true,
     default: []
   }
 });

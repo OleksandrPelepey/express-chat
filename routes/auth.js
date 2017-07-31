@@ -58,12 +58,12 @@ router.post('/signup', function(req, res) {
 			return res.json(response);
 		}
 
-		var payload = {id: user._id, password: newUser.password};
+		var payload = {id: newUser._id, password: newUser.password};
 		var token = jwt.sign(payload, jwtOptions.secretOrKey);
 
-		user.password = undefined;
+		newUser.password = undefined;
 		
-		return res.json({success: true, taken: 'JWT ' + token, user: user});
+		return res.json({success: true, taken: token, user: newUser});
 	});
 });
 
